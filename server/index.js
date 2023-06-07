@@ -79,11 +79,16 @@ MongoClient.connect(MongoUrl, { useUnifiedTopology: true }, (err, client) => {
 const  userRouter = require('./routes/userRoute');
 const restaurantRouter =  require('./routes/restaurant_route');
 const productRouter =  require('./routes/product_route');
+const  cartRouter =  require('./routes/cartItem_route');
+const orderRouter =  require('./routes/order_route')
 
 
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/restaurant', restaurantRouter);
 app.use('/api/v1/product', productRouter);
+app.use('/api/v1/cart_items',cartRouter);
+app.use('/api/v1/orders', orderRouter)
+
 
  app.post('/api/v1/posts/upload_photo', upload.single('photo'), (req, res) => {
     // do something with the photo
