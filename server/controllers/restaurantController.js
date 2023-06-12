@@ -9,7 +9,7 @@ exports.registeRestaurant = catchAsync(async (req,res,next) => {
     const new_restaurant  = await Restaurant.create(req.body);
 
     if(!new_restaurant){
-        return next(new AppError('Failed to register new laundry', 400))
+        return next(new AppError('Failed to register new laundry', 400));
     }
 
     res.status(201).json({

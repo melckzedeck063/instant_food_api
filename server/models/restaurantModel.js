@@ -22,12 +22,19 @@ const RestaurantSchema =  mongoose.Schema({
         type : String,
         trim  : true
     },
+    address : {
+        type : Object
+    },
     registered_by  : {
         type : mongoose.Schema.ObjectId,
         ref : 'User',
         required : [true, "User id is required"],
         trim : true
-    } 
+    } ,
+    date_registered : {
+        type : Date,
+        default : Date.now()
+    }
 
 })
 

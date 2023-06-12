@@ -48,7 +48,7 @@ exports.registerProduct = catchAsync(async (req,res,next) => {
     const new_product  = await Product.create(req.body);
 
     if(!new_product){
-        return next(new AppError('Failed to register new product', 400))
+        return next(new AppError('Failed to register new product', 400));
     }
 
     sendResponse(201, new_product, res, 'New product registered succesfully');
