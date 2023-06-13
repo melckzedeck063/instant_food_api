@@ -85,5 +85,20 @@ exports.becomeDriver = catchAsync( async (req,res, next) => {
       }
 })
 
+exports.updateLocation = catchAsync( async(req,res,next)  => {
+    const current_user = await User.findByIdAndUpdate(req.user.id, {
+        live_location :  req.body.latlong
+    }, {
+        new : true,
+        runValidators : true
+    }
+    )
+    if(!current_user){
+        return next(new  AppError('No user found with that ID', 404))
+    }
+
+    sendResponse(current_user, "User location updated succesfully",res, 203);
+})
+
 exports.deleteUser = Factory.deleteModel(User);
 exports.deactivateAccount =   Factory.deactivateOne(User);

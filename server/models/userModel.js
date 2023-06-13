@@ -40,6 +40,7 @@ const userSchema = mongoose.Schema({
     licenseNo : {
         type :  String
     },
+    live_location : Object,
     station : String,
     password : {
         type : String,

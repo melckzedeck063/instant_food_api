@@ -14,6 +14,7 @@ router.get('/all_users', userController.getAllUsers);
 router.get('/me', userController.getMe);
 router.get('/user/:id', userController.getUser);
 router.patch('/become_driver', userController.becomeDriver)
+router.patch('/update_location', userController.updateLocation);
 router.delete('/delete_user/:id', userController.deleteUser);
 
 
