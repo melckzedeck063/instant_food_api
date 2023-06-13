@@ -64,6 +64,7 @@ app.use(express.json());
 // const MongoUrl = `mongodb://localhost:27017/instant_food`;
  const  MongoUrl = `mongodb://${process.env.DB_USERNAME}:${process.env.PASSWORD}@cluster0-shard-00-00.xwzd4.mongodb.net:27017,cluster0-shard-00-01.xwzd4.mongodb.net:27017,cluster0-shard-00-02.xwzd4.mongodb.net:27017/instant_food?ssl=true&replicaSet=atlas-khbsbw-shard-0&authSource=admin&retryWrites=true&w=majority`
 
+
 mongoose.connect(MongoUrl, {
     useUnifiedTopology: true,
     useNewUrlParser : true
