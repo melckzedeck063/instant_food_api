@@ -18,6 +18,14 @@ const OrderSchema =  mongoose.Schema({
         type : String,
         default : "Pending"
     },
+    user_location : {
+        type : Object,
+        required : true
+    },
+    driver : {
+        type : mongoose.Schema.ObjectId,
+        required : true
+    },
     order_items : [
         {
             type : mongoose.Schema.ObjectId,
@@ -34,6 +42,10 @@ OrderSchema.pre(/^find/, function(next){
     this.populate({
         path : 'ordered_by',
         select : '-__v -role -password'
+    })
+    .populate({
+        path : 'driver',
+        select : '-__V -role -password'
     })
     // .populate({
     //     path  :  'order_items'

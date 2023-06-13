@@ -2,6 +2,7 @@ const CartItem  =  require('../models/cartModel');
 
 const catchAsync   =  require('../utils/catchAsync');
 const  AppError =  require('../utils/AppError');
+const Factory =   require('../controllers/factoryController')
 
 
 const  sendResponse = (data, statusCode, res, message) => {
@@ -72,12 +73,4 @@ exports.deleteCartItmes = catchAsync ( async (req,res,next)  => {
     sendResponse(cart_items, 203, res, 'cart items succesfully deleted');
 })
 
-exports.deleteCartItem =  catchAsync ( async (req, res, next) => {
-    const cartItem  =  await CartItem.findByIdAndDelete(req.params.id);
-
-    if(!cartItem){
-        return next(new AppError('No document found with that ID', 404))
-    }
-
-    sendResponse(cartItem, 204, res, "Cart item deleted succesfully")
-})
+exports.deleteCartItem =  Factory.deleteModel(CartItem)

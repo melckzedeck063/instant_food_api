@@ -31,9 +31,16 @@ const userSchema = mongoose.Schema({
     photo : String, 
     role : {
         type: String,
-        enum : ['user', 'admin', 'staff'],
+        enum : ['user', 'admin', 'driver', 'staff'],
         default : 'user'
     },
+    vehicleNo  : {
+        type  : String
+    },
+    licenseNo : {
+        type :  String
+    },
+    station : String,
     password : {
         type : String,
         required : [true, 'Please provide a strong password'],
