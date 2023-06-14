@@ -34,6 +34,16 @@ exports.getAllUsers = catchAsync( async (req, res, next)  =>  {
 
 })
 
+exports.getDrivers = catchAsync(async (req,res,next) =>  {
+    const drivers =  await User.find({role : 'driver'});
+
+    if(!drivers){
+        return next(new AppError("No drivers found in this  document", 404))
+    }
+
+    sendResponse(drivers, "drivers available are", res,200)
+})
+
 exports.getUser = catchAsync( async (req, res, next) => {
     console.log(req.params)
     const user =  await User.findById(req.params.id);
@@ -78,7 +88,7 @@ exports.becomeDriver = catchAsync( async (req,res, next) => {
             return next(new  AppError('No user found with that ID', 404))
         }
 
-        sendResponse(current_user, "User role updated succesfully",res, 203)
+        sendResponse(current_user, "User role updated succesfully",res, 201)
       }
       else {
         return next(new AppError('The entered vehicle  or license number does not exist', 400))
@@ -97,7 +107,7 @@ exports.updateLocation = catchAsync( async(req,res,next)  => {
         return next(new  AppError('No user found with that ID', 404))
     }
 
-    sendResponse(current_user, "User location updated succesfully",res, 203);
+    sendResponse(current_user, "User location updated succesfully",res, 201);
 })
 
 exports.deleteUser = Factory.deleteModel(User);
