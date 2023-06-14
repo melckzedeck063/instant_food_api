@@ -25,6 +25,7 @@ exports.createOrderItem =  catchAsync( async (req,res,next) => {
         total_cost : req.body.total_cost,
         order_id : req.body.order_id,
         order_status : req.body.order_status,
+        delivery_fee : req.body.delivery_fee,
         driver :  req.body.driver,
         user_location : req.body.user_location
     })

@@ -18,6 +18,7 @@ const OrderSchema =  mongoose.Schema({
         type : String,
         default : "Pending"
     },
+    delivery_fee : String,
     user_location : {
         type : Object,
         required : true
