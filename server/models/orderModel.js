@@ -25,12 +25,12 @@ const OrderSchema =  mongoose.Schema({
     },
     driver : {
         type : mongoose.Schema.ObjectId,
-        required : true
+        ref :'User'
     },
     order_items : [
         {
             type : mongoose.Schema.ObjectId,
-            ref : 'CartItem'
+            ref : 'Product'
         }
     ],
     ordered_by : {
@@ -46,11 +46,12 @@ OrderSchema.pre(/^find/, function(next){
     })
     .populate({
         path : 'driver',
-        select : '-__V -role -password'
+        select : '-__v -role -password'
     })
-    // .populate({
-    //     path  :  'order_items'
-    // })
+    .populate({
+        path  :  'order_items',
+        select : '-created_by -date_registered -__v'
+    })
 
     next();
 })

@@ -9,6 +9,7 @@ router.use(AuthController.protect);
 
 router.post('/create_order', OrderController.createOrderItem);
 router.get('/my_orders', OrderController.getMyOrders);
+router.get('/driver_orders', OrderController.getSentOrders)
 
 router.delete('/delete_orders',OrderController.deleteOrderItems )
 router.delete('/delete_order/:id', OrderController.deleteOrderItem);

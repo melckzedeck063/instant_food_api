@@ -4,6 +4,7 @@ const AppError =  require('../utils/AppError');
 const AuthController =  require('./AuthController');
 const OrderItem = require('../models/orderModel');
 const Product =  require('../models/productModel');
+const Factory = require('../controllers/factoryController');
 
 
 const sendResponse = (data, statusCode,res, msg) =>{
@@ -38,26 +39,12 @@ exports.createOrderItem =  catchAsync( async (req,res,next) => {
 
 })
 
-exports.getAllOrders = catchAsync(async (req,res, next) => {
-    const  order_items = await OrderItem.find({order_status : "confirmed" || "accepted" || "delivered"});
+exports.getAllOrders = Factory.getAll(OrderItem)
 
-    if(!order_items){
-        return next(new AppError("No data found in this document", 404))
-    }
+exports.getMyOrders = Factory.getMyOrders(OrderItem) ;
 
-    sendResponse(order_items, 200, res, "order items found")
-})
+exports.getSentOrders = Factory.getSentOrders(OrderItem);
 
-exports.getMyOrders = catchAsync( async (req,res, next) => {
-    const my_orders = await OrderItem.find({ordered_by : req.user.id})
-
-    
-    if(!my_orders){
-        return  next(new AppError("No order item found with that ID", 404))
-    }
-    
-    sendResponse(my_orders, 200, res, "order items found")
-})
 
 exports.deleteOrderItem = catchAsync(async  (req,res, next) => {
     const order_item = await OrderItem.findByIdAndDelete(req.params.id);

@@ -76,6 +76,42 @@ exports.getAll = Model => catchAsync(async (req, res, next) => {
 
 })
 
+exports.getMyOrders = Model => catchAsync( async (req,res, next) => {
+    // const my_orders = await OrderItem.find()
+    const features =  new ApiFeatures(Model.find({ordered_by : req.user.id}), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate()
+    
+    const doc = await features.query;
+
+    if (!doc) {
+        return next(new AppError('No document foundin this collection'));
+    }
+
+    response(doc, 200, res, 'Data found succesfully');
+
+})
+
+exports.getSentOrders = Model => catchAsync (async (req,res,next) => {
+    // const sent_orders = await  OrderItem.find({driver :  req.user.id});
+
+    const features =  new ApiFeatures(Model.find({driver :  req.user.id}), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate()
+    
+    const doc = await features.query;
+
+    if (!doc) {
+        return next(new AppError('No document foundin this collection'));
+    }
+
+    response(doc, 200, res, 'Data found succesfully');
+})
+
 exports.deactivateOne = Model => catchAsync(async (req, res, next) => {
     req.body.status = "deleted"
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
