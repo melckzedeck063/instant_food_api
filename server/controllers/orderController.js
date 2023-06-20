@@ -18,18 +18,8 @@ const sendResponse = (data, statusCode,res, msg) =>{
 }
 
 exports.createOrderItem =  catchAsync( async (req,res,next) => {
-    console.log(req.body)
-    const order_item = await OrderItem.create({
-        order_items : req.body.order_items,
-        ordered_by : req.user.id,
-        createdAt : req.body.createdAt,
-        total_cost : req.body.total_cost,
-        order_id : req.body.order_id,
-        order_status : req.body.order_status,
-        delivery_fee : req.body.delivery_fee,
-        driver :  req.body.driver,
-        user_location : req.body.user_location
-    })
+if(!req.body.ordered_by)req.body.ordered_by = req.user.id
+    const order_item = await OrderItem.create(req.body)
 
     if(!order_item){
         return next(new AppError("Failed to create order item", 400))
