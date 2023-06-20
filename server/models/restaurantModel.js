@@ -23,7 +23,8 @@ const RestaurantSchema =  mongoose.Schema({
         trim  : true
     },
     address : {
-        type : Object
+        type : Object,
+default :{latitude:-6.178052,longtude:35.749786}
     },
     registered_by  : {
         type : mongoose.Schema.ObjectId,
